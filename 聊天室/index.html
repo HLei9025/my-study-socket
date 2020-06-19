@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>聊天室</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <style>
+        .handle{
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 100%;
+        }
+        textarea{
+            width: 100%;
+            height: 100px;
+            border: 1px solid #ddd;
+        }
+        .btn{
+            position: absolute;
+            right: 10px;
+            bottom: 10px;
+        }
+        .right{
+            float: right;
+            max-width: 70%;
+            border: 1px solid #339966;
+            border-radius: 4px;
+            padding: 10px;
+            clear: both;
+        }
+        .left{
+            float: left;
+            max-width: 70%;
+            border: 1px solid #666666;
+            border-radius: 4px;
+            padding: 10px;
+            clear: both;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <div class="login" v-if="!isLogin">
+            <input type="text" placeholder="用户名" v-model="name">
+            <input type="password" placeholder="密码" v-model="password">
+            <button @click="loginAction">登录</button>
+        </div>
+        <div class="chart-room" v-if="isLogin">
+            <h1>开心聊天室</h1>
+
+            <ul>
+                <li v-for="item in list" :class="{right: item.send === name, left: item.send !== name}">
+                    {{item.send}}:{{item.msg}}
+                </li>
+            </ul>
+
+            <div class="handle">
+                <textarea v-model="message"></textarea>
+                <button class="btn" @click="sendAction">发送</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="./index.js"></script>
+</body>
+</html>

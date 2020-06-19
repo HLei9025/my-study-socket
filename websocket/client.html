@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>websocket</title>
+</head>
+<body>
+    <h1>hello world</h1>
+    <input type="text" name="" id="input">
+    <button onclick="sendAction()">发送</button>
+    <button onclick="closeAction()">关闭</button>
+
+
+    <script>
+        // 链接服务器
+        let websocket = new WebSocket('ws://localhost:9000');
+
+        websocket.onopen = function(){
+            console.log('链接了服务器')
+        }
+        websocket.onmessage = function(data){
+            console.log('接受了服务器的信息');
+            console.log(data);
+        }
+        websocket.onclose = function(){
+            console.log('关闭了')
+        }
+        websocket.onerror = function(){
+            console.log('出错了')
+        }
+
+        function sendAction(){
+            let value = document.querySelector('#input').value;
+            // 发送信息
+            websocket.send(value);
+            document.querySelector('#input').value = '';
+        }
+        function closeAction(){
+            // 关闭通信通道
+            websocket.close();
+        }
+    </script>
+</body>
+</html>
